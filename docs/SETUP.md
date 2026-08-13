@@ -15,6 +15,35 @@ gemini --version
 
 ## 2. 브릿지 서버 실행 (PC)
 
+### 2-0. 한 줄 설치 (권장)
+
+Node.js(LTS)만 미리 설치되어 있으면, 아래 한 줄로 clone → `npm install`/빌드 → `.env` 생성 →
+로그인 시 자동 시작 등록 → 서버 실행 → 페어링 QR 페이지 열기까지 전부 끝납니다:
+
+```powershell
+# Windows (PowerShell)
+irm https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.ps1 | iex
+```
+```bash
+# macOS / Linux
+curl -fsSL https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.sh | bash
+```
+
+기본 설치 위치는 `~/ai-butler`(Windows는 `%USERPROFILE%\ai-butler`)이며, 끝나면 브라우저에 `/pair`
+페이지(QR코드)가 자동으로 열립니다. 설치 위치/포트를 바꾸려면(Windows 예시):
+```powershell
+irm https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.ps1 -OutFile install.ps1
+.\install.ps1 -InstallDir "D:\ai-butler" -Port 9000
+```
+(macOS/Linux는 `INSTALL_DIR=... PORT=... bash install.sh`처럼 환경변수로 지정)
+
+**이 스크립트를 쓰면 아래 2-1(수동 실행)과 2-2(자동시작 등록)는 이미 끝난 것이니 4번(페어링)으로 바로
+넘어가면 됩니다.** 업데이트하고 싶을 땐 같은 명령을 다시 실행하면 최신 버전으로 갱신됩니다.
+
+### 2-1. 수동 실행
+
+한 줄 설치 대신 직접 하나씩 실행하고 싶다면:
+
 ```bash
 cd server
 npm install
@@ -34,7 +63,7 @@ Tailscale (외부에서도 접속 가능, 권장): http://100.x.y.z:8787
 및 QR 코드. **이 정보(호스트 IP / 포트 / 토큰)를 앱 페어링에 사용합니다.** Tailscale 주소가 보이면
 그걸 쓰세요 — 집 Wi-Fi든 폰 모바일 데이터든 어디서든 그대로 접속됩니다 (4번 항목 참고).
 
-### 2-1. PC 재부팅 후에도 서버가 자동으로 다시 뜨게 하기 (권장)
+### 2-2. PC 재부팅 후에도 서버가 자동으로 다시 뜨게 하기 (2-0을 썼다면 이미 완료됨)
 
 `npm run dev`는 터미널에 붙어 있는 임시 프로세스라서 **PC를 재부팅하면 서버도 같이 죽고, 아무것도 다시
 켜주지 않습니다** — 외부에서 폰으로 접속이 안 될 때 원인의 상당수가 이것입니다(Tailscale 자체는 OS

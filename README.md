@@ -29,17 +29,22 @@ ai-butler/
 
 ## 빠른 시작
 
-1. **서버 실행** (PC)
-   ```bash
-   cd server
-   npm install
-   npm run dev
-   ```
-   콘솔에 페어링 QR코드와 `host/port/token`이 출력됩니다.
+**1. 서버 설치** (PC — Node.js만 미리 설치되어 있으면 됩니다) — 한 줄이면 clone/빌드/자동시작 등록/실행까지 끝나고, 페어링용 QR코드 페이지가 자동으로 뜹니다:
 
-2. **안드로이드 앱 빌드** — [docs/SETUP.md](docs/SETUP.md) 참고 (Android Studio 설치부터 안내)
+```powershell
+# Windows (PowerShell)
+irm https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.ps1 | iex
+```
+```bash
+# macOS / Linux
+curl -fsSL https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.sh | bash
+```
 
-3. 앱 최초 실행 시 페어링 화면에서 서버 정보를 입력하면 바로 대화 시작
+**2. 앱 설치** (폰) — [최신 릴리스](https://github.com/rooseol/ai-butler/releases/latest)에서 `app-release.apk`를 다운로드해 설치 ([docs/SETUP.md](docs/SETUP.md)에 직접 빌드하는 방법도 있음)
+
+**3. 페어링** — 앱 실행 → "QR 스캔으로 연결" → 1번에서 뜬 QR코드를 스캔하면 바로 대화 시작
+
+세부 사항(수동 설치, 문제 해결 등)은 [docs/SETUP.md](docs/SETUP.md) 참고.
 
 ## 기능
 

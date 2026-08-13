@@ -82,7 +82,8 @@ Claude Code 대화를 폰에서 그대로 이어갈 수 있습니다.
     **해결**: `server/start-server.bat`(Windows)/`start-server.sh`(macOS/Linux)가 서버를 실행하고 죽으면 5초
     후 스스로 재시작하는 무한 루프를 돌며, 이걸 각 OS의 "로그인 시 자동 시작" 메커니즘(Windows 작업
     스케줄러 / macOS `launchd` / Linux `systemd --user`)에 등록해 로그인할 때마다 백그라운드로 자동
-    기동되게 했습니다 (`docs/SETUP.md` 2-1 참고). 세 방식 모두 트리거가 "로그인 시"를 전제로 하므로, 로그인
+    기동되게 했습니다 (`docs/SETUP.md` 2-2 참고 — `server/install.ps1`/`install.sh`를 쓰면 자동으로 등록됨).
+    세 방식 모두 트리거가 "로그인 시"를 전제로 하므로, 로그인
     없이(무인 상태) 재부팅만으로 뜨게 하려면 Windows는 서비스화(nssm 등, 계정 자격 증명 등록 필요), Linux는
     `loginctl enable-linger`, macOS는 `LaunchDaemon`(root 권한)으로 별도 전환이 필요합니다.
 
