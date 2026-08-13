@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="butler_primary">#4F6BED</color>
+    <color name="butler_primary_dark">#3550C7</color>
+    <color name="butler_background_light">#FFFFFF</color>
+    <color name="butler_background_dark">#121212</color>
+</resources>

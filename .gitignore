@@ -1,0 +1,26 @@
+# server
+server/node_modules/
+server/dist/
+server/data/*.sqlite*
+server/data/pairing.json
+server/data/firebase-service-account.json
+server/storage/files/*
+!server/storage/files/.gitkeep
+server/.env
+
+# android
+app/.gradle/
+app/.kotlin/
+app/build/
+app/app/build/
+app/local.properties
+app/*.iml
+app/.idea/
+app/captures/
+app/app/google-services.json
+*.keystore
+*.jks
+
+# misc
+.DS_Store
+*.log

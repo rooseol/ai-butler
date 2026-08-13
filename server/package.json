@@ -1,0 +1,39 @@
+{
+  "name": "ai-butler-server",
+  "version": "0.1.0",
+  "description": "AI Butler bridge server - connects Android app to Claude Code / Codex / Gemini CLI agents",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc -p tsconfig.json"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-spawn": "^7.0.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "multer": "^2.2.0",
+    "nanoid": "^5.0.7",
+    "node-cron": "^4.6.0",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/cross-spawn": "^6.0.6",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^22.7.4",
+    "@types/qrcode": "^1.5.6",
+    "@types/qrcode-terminal": "^0.12.2",
+    "@types/ws": "^8.5.12",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}

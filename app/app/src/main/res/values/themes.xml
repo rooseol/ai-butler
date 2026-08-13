@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compose가 테마를 담당하므로 시작 화면 깜빡임 방지용 최소 테마만 둡니다. -->
+    <style name="Theme.AiButler" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/butler_primary</item>
+    </style>
+</resources>
