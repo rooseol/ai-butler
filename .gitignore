@@ -21,6 +21,7 @@ app/app/google-services.json
 *.keystore
 *.jks
 app/keystore.properties
+server/*.exe
 
 # misc
 .DS_Store
