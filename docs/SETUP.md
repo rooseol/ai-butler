@@ -127,7 +127,20 @@ systemctl --user enable --now aibutler-server
 
 서버를 상시 켜두려면 PC가 절전모드로 빠지지 않도록 설정하세요.
 
-## 3. 안드로이드 앱 빌드 (Android Studio 최초 설치부터)
+## 3. 안드로이드 앱 설치
+
+### 3-0. 다운로드로 설치 (가장 쉬움 — 새 기기로 바꿀 때도 이 방법)
+
+USB/Android Studio 없이, 폰에서 바로 APK를 받아 설치할 수 있습니다.
+
+1. 폰 브라우저로 [Releases 페이지](https://github.com/rooseol/ai-butler/releases/latest)를 열고 `app-release.apk`를 다운로드
+2. 다운로드 완료 알림을 눌러 설치 시작 → "출처를 알 수 없는 앱" 경고가 뜨면 **설정 → 허용**(브라우저/파일앱에 "알 수 없는 앱 설치" 권한을 한 번 허용해야 함)
+3. 설치 후 앱 실행 → 첫 화면에서 [4번 항목](#4-폰-서버-페어링)대로 PC와 페어링
+
+> 이미 앱이 깔려 있는 상태에서 새 버전을 설치하면 기존 위에 업데이트되어(같은 서명 키로 빌드됨) 페어링 정보가 유지됩니다.
+> 다만 **아예 새 기기로 바꾸는 경우**(또는 기존 앱을 지우고 새로 까는 경우)는 페어링을 다시 해야 합니다.
+
+### 3-1. 소스에서 직접 빌드 (Android Studio 최초 설치부터)
 
 > ✅ 이 프로젝트는 실제 Android Studio 환경(SDK android-37, JDK 25)에서 커맨드라인 Gradle로 **직접 빌드·실기기 설치·채팅 왕복까지 end-to-end로 검증 완료**되었습니다.
 > 사용 버전: **Gradle 9.7.0 / AGP 9.3.1 / Kotlin 2.4.10 / Compose BOM 2026.06.01**, compileSdk·targetSdk 37 (AGP 9.0부터 Kotlin 지원이 내장되어 `org.jetbrains.kotlin.android` 플러그인은 더 이상 쓰지 않음).
@@ -142,6 +155,23 @@ systemctl --user enable --now aibutler-server
 5. Android Studio 상단 기기 목록에서 내 폰 선택 → ▶ Run 버튼
 
 빌드 에러가 나면 에러 메시지를 그대로 들고 다시 요청해주세요 — 이어서 고쳐드립니다.
+
+**직접 서명된 릴리스 APK를 만들고 싶다면** (예: 자신의 GitHub Release로 배포하려는 경우):
+
+```bash
+keytool -genkeypair -v -keystore app/ai-butler-release.keystore -alias aibutler \
+  -keyalg RSA -keysize 2048 -validity 10000
+```
+
+`app/keystore.properties` 파일을 만들고(git-ignore 대상이라 커밋되지 않음):
+```properties
+storeFile=ai-butler-release.keystore
+storePassword=<위에서 설정한 비밀번호>
+keyAlias=aibutler
+keyPassword=<위에서 설정한 비밀번호>
+```
+그 후 `./gradlew assembleRelease`로 빌드하면 `app/app/build/outputs/apk/release/app-release.apk`가 이 키로 서명되어 생성됩니다.
+**이 키스토어 파일은 안전한 곳에 백업하세요** — 잃어버리면 이후 업데이트를 기존 설치 위에 덮어씌울 수 없게 됩니다(앱 삭제 후 재설치 필요).
 
 ## 4. 폰-서버 페어링
 

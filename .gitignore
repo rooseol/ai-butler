@@ -20,6 +20,7 @@ app/captures/
 app/app/google-services.json
 *.keystore
 *.jks
+app/keystore.properties
 
 # misc
 .DS_Store
