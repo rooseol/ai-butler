@@ -40,6 +40,21 @@ irm https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.ps
 **이 스크립트를 쓰면 아래 2-1(수동 실행)과 2-2(자동시작 등록)는 이미 끝난 것이니 4번(페어링)으로 바로
 넘어가면 됩니다.** 업데이트하고 싶을 땐 같은 명령을 다시 실행하면 최신 버전으로 갱신됩니다.
 
+**Windows에서 PowerShell 명령이 번거롭다면** [최신 릴리스](https://github.com/rooseol/ai-butler/releases/latest)의
+`AI-Butler-Setup.exe`를 다운로드해 더블클릭하세요 — `install.ps1`을 그대로 실행 파일로 감싼 것이라 동작은
+완전히 동일합니다. 서명 인증서 없이 배포되는 개인 프로젝트라 첫 실행 시 SmartScreen이 "Windows에서
+PC를 보호했습니다" 경고를 띄울 수 있습니다 — **추가 정보 → 실행**을 누르면 진행됩니다.
+
+<details>
+<summary>메인테이너용: exe 직접 빌드하기</summary>
+
+```powershell
+Install-Module -Name ps2exe -Scope CurrentUser
+Invoke-ps2exe -inputFile server\install.ps1 -outputFile server\AI-Butler-Setup.exe `
+  -iconFile server\installer.ico -title "AI Butler 서버 설치" -product "AI Butler" -x64
+```
+</details>
+
 ### 2-1. 수동 실행
 
 한 줄 설치 대신 직접 하나씩 실행하고 싶다면:

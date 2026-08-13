@@ -20,11 +20,23 @@ param(
     [switch]$SkipOpenBrowser
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 function Write-Step($msg) { Write-Host "`n==> $msg" -ForegroundColor Cyan }
 function Write-Warn2($msg) { Write-Host "! $msg" -ForegroundColor Yellow }
 function Write-Ok($msg) { Write-Host "OK $msg" -ForegroundColor Green }
+
+# 외부 명령(git/npm 등)은 정상 진행 로그도 stderr로 씁니다. ps2exe로 컴파일한 실행 파일에서는 이게
+# 전부 빨간 "ERROR:"로 표시돼(실제로는 에러가 아닌데도) 사용자에게 실패한 것처럼 보입니다.
+# 그래서 출력은 감춰뒀다가, $LASTEXITCODE로 실제 성공/실패만 판단하고, 실패했을 때만 로그를 보여줍니다.
+function Invoke-Native {
+    param([Parameter(Mandatory)][string]$FailMessage, [Parameter(Mandatory)][scriptblock]$Command)
+    $output = & $Command 2>&1 | ForEach-Object { $_.ToString() }
+    if ($LASTEXITCODE -ne 0) {
+        $output | ForEach-Object { Write-Host $_ }
+        throw "$FailMessage (종료 코드 $LASTEXITCODE)"
+    }
+}
 
 Write-Host @"
 ========================================
@@ -49,11 +61,11 @@ $git = Get-Command git -ErrorAction SilentlyContinue
 if (Test-Path "$InstallDir\.git") {
     Write-Host "  기존 설치 발견 — 최신 버전으로 업데이트합니다"
     Push-Location $InstallDir
-    & git pull --ff-only
+    Invoke-Native "git pull 실패" { git pull --ff-only }
     Pop-Location
 }
 elseif ($git) {
-    & git clone --depth 1 $RepoUrl $InstallDir
+    Invoke-Native "git clone 실패" { git clone --depth 1 $RepoUrl $InstallDir }
 }
 else {
     Write-Warn2 "git이 없어 zip으로 받습니다 (업데이트 시 git 설치를 권장)"
@@ -74,11 +86,11 @@ $serverDir = Join-Path $InstallDir "server"
 # 3. 의존성 설치 + 빌드
 Write-Step "의존성 설치 (npm install)"
 Push-Location $serverDir
-& npm install --no-fund --no-audit
+Invoke-Native "npm install 실패" { npm install --no-fund --no-audit }
 Write-Ok "설치 완료"
 
 Write-Step "빌드 (npm run build)"
-& npm run build
+Invoke-Native "npm run build 실패" { npm run build }
 Write-Ok "빌드 완료"
 
 # 4. .env 준비

@@ -40,6 +40,10 @@ irm https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.ps
 curl -fsSL https://raw.githubusercontent.com/rooseol/ai-butler/master/server/install.sh | bash
 ```
 
+Windows에서 PowerShell 명령이 번거로우면, [최신 릴리스](https://github.com/rooseol/ai-butler/releases/latest)에서
+`AI-Butler-Setup.exe`를 받아 더블클릭해도 동일하게 동작합니다 (서명된 배포판이 아니라서 첫 실행 시
+"Windows에서 PC를 보호했습니다" 경고가 뜨면 **추가 정보 → 실행**을 눌러주세요).
+
 **2. 앱 설치** (폰) — [최신 릴리스](https://github.com/rooseol/ai-butler/releases/latest)에서 `app-release.apk`를 다운로드해 설치 ([docs/SETUP.md](docs/SETUP.md)에 직접 빌드하는 방법도 있음)
 
 **3. 페어링** — 앱 실행 → "QR 스캔으로 연결" → 1번에서 뜬 QR코드를 스캔하면 바로 대화 시작
